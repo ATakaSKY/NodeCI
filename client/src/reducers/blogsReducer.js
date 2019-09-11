@@ -8,6 +8,8 @@ export default function(state = {}, action) {
       return { ...state, [blog._id]: blog };
     case FETCH_BLOGS:
       return { ...state, ...mapKeys(action.payload, '_id') };
+    case 'CHECK_FILES':
+      return { ...state, data:action.payload };
     default:
       return state;
   }

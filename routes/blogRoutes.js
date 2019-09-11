@@ -12,20 +12,28 @@ module.exports = app => {
     });
 
     res.send(blog);
-  }); 
+  });  
 
   app.get('/api/blogs', requireLogin,clearCache, async (req, res) => {
     const blogs = await Blog.find({ _user: req.user.id }).cache({key:req.user.id});
 
     res.send(blogs);
   });
+  
+  app.post('/api/checkFiles', requireLogin, async (req, res) => {
+    console.log(req.body);
+    // const files = req.body;
+
+    // res.send(blogs);
+  });
 
   app.post('/api/blogs', requireLogin, async (req, res) => {
-    const { title, content } = req.body;
+    const { title, content, imageUrl } = req.body;
 
     const blog = new Blog({
       title,
       content,
+      imageUrl,
       _user: req.user.id
     }); 
 
